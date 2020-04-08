@@ -23,7 +23,11 @@ public class LoginController extends HttpServlet {
 
     public LoginController() {
         super();
-        // TODO Auto-generated constructor stub
+        
+        User usr = new User();
+        UserDAO usrdao = new UserDAO();
+        
+        
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,20 +37,22 @@ public class LoginController extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email"); //  get the email value from the jsp/html page
+	/*	String email = request.getParameter("email"); //  get the email value from the jsp/html page
 		String password = request.getParameter("password"); //  get the password value from the jsp/html page
 
-		// Fill your code
-		
-		boolean validateUser = userdao.loginUser(user);
-		if(validateUser) {
+		ValidateUser validateUser = new ValidateUser();
+		if(validateUser.validate(email,password)) {
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/blogView.jsp");
 			rd.forward(request, response);
 		}else
 		{
 			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 			rd.forward(request, response);
-		}	
+		}
+		*/
+		
+		
+	
 	}
 
 }
