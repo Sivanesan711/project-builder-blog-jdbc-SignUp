@@ -1,11 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,41 +14,65 @@ import dao.UserDAO;
 import model.User;
 import utility.ConnectionManager;
 
-
-
 @WebServlet(urlPatterns= {"/signup"})
 public class SignUpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
     public SignUpController() {
-    	
-    	super();
-    	
-    	User usr = new User();
-    	UserDAO usrdao = new UserDAO();
+        super();
+
+	    User usr = new User();
+        UserDAO usrdao = new UserDAO();
        
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Sign up Controller");
-		
-		ConnectionManager cm = new ConnectionManager();
-		
-		try {
-			cm.getconnection();
-		} catch (ClassNotFoundException | SQLException e) {
-			
-			e.printStackTrace();
-		}
-		
+
 		RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/signupView.jsp");
 		rd.forward(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		doGet(request,response);
+		
+		
+			String email = request.getParameter("email"); //  get the email value from the jsp/html page
+		String password = request.getParameter("password"); //  get the password value from the jsp/html page
+		String confirmPassword = request.getParameter("confirmPassword"); //  get the confirm password value from the jsp/html page
+		LocalDate date= LocalDate.now(); // Java 8 Time API used to get system date and time at a particular instance
+		
+		// Fill your code here
+		  User usr = new User();
+		  usr.setEmail(email);
+		  usr.setPassword(password);
+		  usr.setConfirmpassword(confirmPassword);
+		  
+		  usr.setDate(date);
+		  
+		  UserDAO usrdao = new UserDAO();
+		  
+		  int checkUser=0;
+		
+		
+	
+		if(checkUser!=0)
+		{
+						
+			System.out.println(usr.getEmail());
+			System.out.println(usr.getPassword());
+			System.out.println(usr.getDate());
+			request.setAttribute("message", "Registration Successful");
+			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/signupView.jsp");
+			rd.forward(request, response);
+		}
+		else
+		{
+			request.setAttribute("message", "Registration Successful");
+			RequestDispatcher rd=this.getServletContext().getRequestDispatcher("/WEB-INF/views/signupView.jsp");
+			rd.forward(request, response);
+		}
+		
 		
 	}
 
